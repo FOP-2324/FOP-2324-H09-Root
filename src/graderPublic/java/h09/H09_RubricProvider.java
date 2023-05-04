@@ -1,12 +1,12 @@
-package h_id_;
+package h09;
 
 import org.sourcegrade.jagr.api.rubric.Rubric;
 import org.sourcegrade.jagr.api.rubric.RubricProvider;
 
-public class H_id__RubricProvider implements RubricProvider {
+public class H09_RubricProvider implements RubricProvider {
 
     public static final Rubric RUBRIC = Rubric.builder()
-        .title("H_id_")
+        .title("H09")
         .build();
 
     @Override
