@@ -6,6 +6,4 @@ public record LectureHall(
     String name,
     int numberOfSeats
 ) implements Room, WithSeats {
-
-
 }

@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public class TestOfOperations {
+public class Tests {
 
     @Test
     public void testFilter() {
-        StackOfObjects<LectureHall> filtered = Functions.filter(
+        StackOfObjects<LectureHall> filtered = StackOfObjectsOperations.filter(
             TUDa.stackOfLectureHalls(),
             room -> room.numberOfSeats() >= 372
         );
@@ -28,7 +28,7 @@ public class TestOfOperations {
     @Test
     public void testMap() {
         StackOfObjects<SeminarRoom> rooms = TUDa.stackOfSeminarRooms();
-        StackOfObjects<Integer> mapped = Functions.map(
+        StackOfObjects<Integer> mapped = StackOfObjectsOperations.map(
             TUDa.stackOfSeminarRooms(),
             SeminarRoom::numberOfSeats
         );
@@ -36,6 +36,5 @@ public class TestOfOperations {
         for (int i = 0; i < rooms.numberOfObjects(); i++) {
             assertSame(rooms.get(i).numberOfSeats(), mapped.get(rooms.numberOfObjects() - (i + 1)));
         }
-
     }
 }
