@@ -13,7 +13,7 @@ public class TestOfOperations {
 
     @Test
     public void testFilter() {
-        StackOfObjects<LectureHall> filtered = StackOperations.filter(
+        StackOfObjects<LectureHall> filtered = Functions.filter(
             TUDa.stackOfLectureHalls(),
             room -> room.numberOfSeats() >= 372
         );
@@ -28,7 +28,7 @@ public class TestOfOperations {
     @Test
     public void testMap() {
         StackOfObjects<SeminarRoom> rooms = TUDa.stackOfSeminarRooms();
-        StackOfObjects<Integer> mapped = StackOperations.map(
+        StackOfObjects<Integer> mapped = Functions.map(
             TUDa.stackOfSeminarRooms(),
             SeminarRoom::numberOfSeats
         );
