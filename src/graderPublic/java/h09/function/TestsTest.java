@@ -6,16 +6,22 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
-import static org.mockito.ArgumentMatchers.anyInt;
+import java.util.List;
+import java.util.function.Supplier;
+
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mockStatic;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertTrue;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.emptyContext;
 
 @TestForSubmission
 public class TestsTest {
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testTestFilter() {
         try (
@@ -26,10 +32,33 @@ public class TestsTest {
 
             stackOperationsMock.verify(() -> StackOfObjectsOperations.filter(any(), any()), atLeastOnce());
             assertionsMock.verify(() -> Assertions.assertEquals(anyInt(), anyInt()), atLeastOnce());
-            assertionsMock.verify(() -> Assertions.assertEquals(any(String.class), any(String.class)), atLeast(5));
+
+            boolean hasCorrectCall = false;
+            List<MockedStatic.Verification> verifications = List.of(
+                () -> Assertions.assertEquals(anyInt(), anyInt()),
+                () -> Assertions.assertEquals(anyInt(), any(Integer.class)),
+                () -> Assertions.assertEquals(any(Integer.class), anyInt()),
+                () -> Assertions.assertEquals(any(Integer.class), any(Integer.class)),
+                () -> Assertions.assertEquals(anyInt(), anyInt(), anyString()),
+                () -> Assertions.assertEquals(anyInt(), any(Integer.class), anyString()),
+                () -> Assertions.assertEquals(any(Integer.class), anyInt(), anyString()),
+                () -> Assertions.assertEquals(any(Integer.class), any(Integer.class), anyString()),
+                () -> Assertions.assertEquals(anyInt(), anyInt(), any(Supplier.class)),
+                () -> Assertions.assertEquals(anyInt(), any(Integer.class), any(Supplier.class)),
+                () -> Assertions.assertEquals(any(Integer.class), anyInt(), any(Supplier.class)),
+                () -> Assertions.assertEquals(any(Integer.class), any(Integer.class), any(Supplier.class))
+            );
+            for (MockedStatic.Verification verification: verifications){
+                try {
+                    assertionsMock.verify(verification, atLeast(6));
+                    hasCorrectCall = true;
+                } catch (AssertionError ignored) {}
+            }
+            assertTrue(hasCorrectCall, emptyContext(), r -> "The returned values of filter are not correctly checked.");
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testTestMap() {
         try (
@@ -39,20 +68,30 @@ public class TestsTest {
             new Tests().testMap();
 
             stackOperationsMock.verify(() -> StackOfObjectsOperations.map(any(), any()), atLeastOnce());
-            assertionsMock.verify(() -> Assertions.assertEquals(anyInt(), anyInt()), atLeastOnce());
-            try {
-                assertionsMock.verify(() -> Assertions.assertEquals(anyInt(), any(Integer.class)), atLeast(TUDa.stackOfSeminarRooms().numberOfObjects()));
-            } catch (AssertionError e) {
+
+            boolean hasCorrectCall = false;
+            List<MockedStatic.Verification> verifications = List.of(
+                () -> Assertions.assertEquals(anyInt(), anyInt()),
+                () -> Assertions.assertEquals(anyInt(), any(Integer.class)),
+                () -> Assertions.assertEquals(any(Integer.class), anyInt()),
+                () -> Assertions.assertEquals(any(Integer.class), any(Integer.class)),
+                () -> Assertions.assertEquals(anyInt(), anyInt(), anyString()),
+                () -> Assertions.assertEquals(anyInt(), any(Integer.class), anyString()),
+                () -> Assertions.assertEquals(any(Integer.class), anyInt(), anyString()),
+                () -> Assertions.assertEquals(any(Integer.class), any(Integer.class), anyString()),
+                () -> Assertions.assertEquals(anyInt(), anyInt(), any(Supplier.class)),
+                () -> Assertions.assertEquals(anyInt(), any(Integer.class), any(Supplier.class)),
+                () -> Assertions.assertEquals(any(Integer.class), anyInt(), any(Supplier.class)),
+                () -> Assertions.assertEquals(any(Integer.class), any(Integer.class), any(Supplier.class))
+            );
+
+            for (MockedStatic.Verification verification: verifications){
                 try {
-                    assertionsMock.verify(() -> Assertions.assertEquals(any(Integer.class), anyInt()), atLeast(TUDa.stackOfSeminarRooms().numberOfObjects()));
-                } catch (AssertionError e2) {
-                    try {
-                        assertionsMock.verify(() -> Assertions.assertEquals(anyInt(), anyInt()), atLeast(TUDa.stackOfSeminarRooms().numberOfObjects()));
-                    } catch (AssertionError e3) {
-                        assertionsMock.verify(() -> Assertions.assertEquals(any(Integer.class), any(Integer.class)), atLeast(TUDa.stackOfSeminarRooms().numberOfObjects()));
-                    }
-                }
+                    assertionsMock.verify(verification, atLeast(TUDa.stackOfSeminarRooms().numberOfObjects() + 1));
+                    hasCorrectCall = true;
+                } catch (AssertionError ignored) {}
             }
+            assertTrue(hasCorrectCall, emptyContext(), r -> "The returned values of Map are not correctly checked.");
         }
     }
 }
