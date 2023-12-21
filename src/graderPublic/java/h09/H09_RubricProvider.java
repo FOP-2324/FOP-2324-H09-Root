@@ -2,6 +2,7 @@ package h09;
 
 import h09.function.RoomFunctionTest;
 import h09.function.StackOfObjectsOperationsTest;
+import h09.function.TestsTest;
 import h09.stack.StackOfObjectsTest;
 import org.sourcegrade.jagr.api.rubric.Criterion;
 import org.sourcegrade.jagr.api.rubric.JUnitTestRef;
@@ -24,15 +25,18 @@ public class H09_RubricProvider implements RubricProvider {
                         .addChildCriteria(
                             criterion(
                                 "H1.1: Der Klassenkopf von StackOfObjects ist korrekt definiert.",
-                                JUnitTestRef.ofMethod(() -> StackOfObjectsTest.class.getDeclaredMethod("testClassParameter"))
+                                JUnitTestRef.ofMethod(
+                                    () -> StackOfObjectsTest.class.getDeclaredMethod("testClassParameter"))
                             ),
                             criterion(
                                 "H1.1: Der Methodenkopf von push() ist korrekt definiert.",
-                                JUnitTestRef.ofMethod(() -> StackOfObjectsTest.class.getDeclaredMethod("testPushParameter"))
+                                JUnitTestRef.ofMethod(
+                                    () -> StackOfObjectsTest.class.getDeclaredMethod("testPushParameter"))
                             ),
                             criterion(
                                 "H1.1: Der Methodenkopf von get() ist korrekt definiert.",
-                                JUnitTestRef.ofMethod(() -> StackOfObjectsTest.class.getDeclaredMethod("testGetParameter"))
+                                JUnitTestRef.ofMethod(
+                                    () -> StackOfObjectsTest.class.getDeclaredMethod("testGetParameter"))
                             ),
                             criterion(
                                 "H1.1: get() verwendet einen korrekten Cast.",
@@ -40,11 +44,13 @@ public class H09_RubricProvider implements RubricProvider {
                             ),
                             criterion(
                                 "H1.1: Der Methodenkopf von pop() ist korrekt definiert.",
-                                JUnitTestRef.ofMethod(() -> StackOfObjectsTest.class.getDeclaredMethod("testPopParameter"))
+                                JUnitTestRef.ofMethod(
+                                    () -> StackOfObjectsTest.class.getDeclaredMethod("testPopParameter"))
                             ),
                             criterion(
                                 "H1.1: Der Methodenkopf von of() ist korrekt definiert.",
-                                JUnitTestRef.ofMethod(() -> StackOfObjectsTest.class.getDeclaredMethod("testOfParameter")),
+                                JUnitTestRef.ofMethod(
+                                    () -> StackOfObjectsTest.class.getDeclaredMethod("testOfParameter")),
                                 2
                             )
                         )
@@ -59,23 +65,28 @@ public class H09_RubricProvider implements RubricProvider {
                         .addChildCriteria(
                             criterion(
                                 "H2.1: filter() besitzt generische Typen.",
-                                JUnitTestRef.ofMethod(() -> StackOfObjectsOperationsTest.class.getDeclaredMethod("testFilter_isGeneric"))
+                                JUnitTestRef.ofMethod(
+                                    () -> StackOfObjectsOperationsTest.class.getDeclaredMethod("testFilter_isGeneric"))
                             ),
                             criterion(
                                 "H2.1: Der erste Parameter wurde passend gewählt.",
-                                JUnitTestRef.ofMethod(() -> StackOfObjectsOperationsTest.class.getDeclaredMethod("testFilter_FirstParameter"))
+                                JUnitTestRef.ofMethod(() -> StackOfObjectsOperationsTest.class.getDeclaredMethod(
+                                    "testFilter_FirstParameter"))
                             ),
                             criterion(
                                 "H2.1: Der zweite Parameter wurde passend gewählt.",
-                                JUnitTestRef.ofMethod(() -> StackOfObjectsOperationsTest.class.getDeclaredMethod("testFilter_SecondParameter"))
+                                JUnitTestRef.ofMethod(() -> StackOfObjectsOperationsTest.class.getDeclaredMethod(
+                                    "testFilter_SecondParameter"))
                             ),
                             criterion(
                                 "H2.1: Der Rückgabetyp wurde passend gewählt.",
-                                JUnitTestRef.ofMethod(() -> StackOfObjectsOperationsTest.class.getDeclaredMethod("testFilter_ReturnType"))
+                                JUnitTestRef.ofMethod(
+                                    () -> StackOfObjectsOperationsTest.class.getDeclaredMethod("testFilter_ReturnType"))
                             ),
                             criterion(
                                 "H2.1: Die Typen der Methode wurden passend definiert.",
-                                JUnitTestRef.ofMethod(() -> StackOfObjectsOperationsTest.class.getDeclaredMethod("testFilter_ParameterDefinition"))
+                                JUnitTestRef.ofMethod(() -> StackOfObjectsOperationsTest.class.getDeclaredMethod(
+                                    "testFilter_ParameterDefinition"))
                             )
                         )
                         .build(),
@@ -84,7 +95,8 @@ public class H09_RubricProvider implements RubricProvider {
                         .addChildCriteria(
                             criterion(
                                 "H2.2: map() besitzt generische Typen.",
-                                JUnitTestRef.ofMethod(() -> StackOfObjectsOperationsTest.class.getDeclaredMethod("testMap_isGeneric"))
+                                JUnitTestRef.ofMethod(
+                                    () -> StackOfObjectsOperationsTest.class.getDeclaredMethod("testMap_isGeneric"))
                             ),
                             Criterion.builder()
                                 .shortDescription("H2.2: Der erste Parameter wurde passend gewählt.")
@@ -106,7 +118,8 @@ public class H09_RubricProvider implements RubricProvider {
                                 .build(),
                             criterion(
                                 "H2.2: Die Typen der Methode wurden passend definiert.",
-                                JUnitTestRef.ofMethod(() -> StackOfObjectsOperationsTest.class.getDeclaredMethod("testMap_ParameterDefinition"))
+                                JUnitTestRef.ofMethod(() -> StackOfObjectsOperationsTest.class.getDeclaredMethod(
+                                    "testMap_ParameterDefinition"))
                             )
                         )
                         .build(),
@@ -114,7 +127,8 @@ public class H09_RubricProvider implements RubricProvider {
                         .shortDescription("H2.3: Interface StackPredicate")
                         .addChildCriteria(
                             Criterion.builder()
-                                .shortDescription("H2.3: StackPredicate wurde korrekt in ein generisches Interface überführt.")
+                                .shortDescription(
+                                    "H2.3: StackPredicate wurde korrekt in ein generisches Interface überführt.")
                                 .grader(graderPrivateOnly())
                                 .minPoints(0)
                                 .maxPoints(1)
@@ -137,7 +151,8 @@ public class H09_RubricProvider implements RubricProvider {
                         .addChildCriteria(
                             criterion(
                                 "H3.1: IS_NULL_PREDICATE ist vollständig korrekt.",
-                                JUnitTestRef.ofMethod(() -> RoomFunctionTest.class.getDeclaredMethod("testNULL_PREDICATE"))
+                                JUnitTestRef.ofMethod(
+                                    () -> RoomFunctionTest.class.getDeclaredMethod("testNULL_PREDICATE"))
                             )
                         )
                         .build(),
@@ -200,15 +215,16 @@ public class H09_RubricProvider implements RubricProvider {
                     Criterion.builder()
                         .shortDescription("H4.1: Die großen 5, definiert von Stadtmitte und Lichtwiese.")
                         .addChildCriteria(
-                            criterion("H4.1: Alle tests sind vollständig korrekt implementiert.")
-                            //TODO
+                            criterion("H4.1: Alle tests sind vollständig korrekt implementiert.",
+                                JUnitTestRef.ofMethod(() -> TestsTest.class.getDeclaredMethod("testTestFilter")))
+
                         )
                         .build(),
                     Criterion.builder()
                         .shortDescription("H4.2: Test von map()")
                         .addChildCriteria(
-                            criterion("H4.2: Alle tests sind vollständig korrekt implementiert.")
-                            //TODO
+                            criterion("H4.2: Alle tests sind vollständig korrekt implementiert.",
+                                JUnitTestRef.ofMethod(() -> TestsTest.class.getDeclaredMethod("testTestMap")))
                         )
                         .build()
                 )

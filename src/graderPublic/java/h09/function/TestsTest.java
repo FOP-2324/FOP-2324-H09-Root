@@ -9,7 +9,8 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.atLeast;
@@ -26,7 +27,8 @@ public class TestsTest {
     public void testTestFilter() {
         try (
             MockedStatic<Assertions> assertionsMock = mockStatic(Assertions.class, CALLS_REAL_METHODS);
-            MockedStatic<StackOfObjectsOperations> stackOperationsMock = mockStatic(StackOfObjectsOperations.class, CALLS_REAL_METHODS)
+            MockedStatic<StackOfObjectsOperations> stackOperationsMock = mockStatic(StackOfObjectsOperations.class,
+                CALLS_REAL_METHODS)
         ) {
             new Tests().testFilter();
 
@@ -48,11 +50,12 @@ public class TestsTest {
                 () -> Assertions.assertEquals(any(Integer.class), anyInt(), any(Supplier.class)),
                 () -> Assertions.assertEquals(any(Integer.class), any(Integer.class), any(Supplier.class))
             );
-            for (MockedStatic.Verification verification: verifications){
+            for (MockedStatic.Verification verification : verifications) {
                 try {
                     assertionsMock.verify(verification, atLeast(6));
                     hasCorrectCall = true;
-                } catch (AssertionError ignored) {}
+                } catch (AssertionError ignored) {
+                }
             }
             assertTrue(hasCorrectCall, emptyContext(), r -> "The returned values of filter are not correctly checked.");
         }
@@ -63,7 +66,8 @@ public class TestsTest {
     public void testTestMap() {
         try (
             MockedStatic<Assertions> assertionsMock = mockStatic(Assertions.class, CALLS_REAL_METHODS);
-            MockedStatic<StackOfObjectsOperations> stackOperationsMock = mockStatic(StackOfObjectsOperations.class, CALLS_REAL_METHODS)
+            MockedStatic<StackOfObjectsOperations> stackOperationsMock = mockStatic(StackOfObjectsOperations.class,
+                CALLS_REAL_METHODS)
         ) {
             new Tests().testMap();
 
@@ -85,11 +89,12 @@ public class TestsTest {
                 () -> Assertions.assertEquals(any(Integer.class), any(Integer.class), any(Supplier.class))
             );
 
-            for (MockedStatic.Verification verification: verifications){
+            for (MockedStatic.Verification verification : verifications) {
                 try {
                     assertionsMock.verify(verification, atLeast(TUDa.stackOfSeminarRooms().numberOfObjects() + 1));
                     hasCorrectCall = true;
-                } catch (AssertionError ignored) {}
+                } catch (AssertionError ignored) {
+                }
             }
             assertTrue(hasCorrectCall, emptyContext(), r -> "The returned values of Map are not correctly checked.");
         }

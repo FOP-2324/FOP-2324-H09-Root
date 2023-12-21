@@ -63,7 +63,8 @@ public class StackOfObjectsOperationsTest {
                 }
             )
             .findFirst().orElse(null);
-        assertNotNull(input, emptyContext(), r -> "Could not determine Type that should be used for this Parameter. Check Type Definition.");
+        assertNotNull(input, emptyContext(),
+            r -> "Could not determine Type that should be used for this Parameter. Check Type Definition.");
         assertReturnParameter(filter, matchNested(StackOfObjects.class, match(input)));
     }
 
@@ -78,7 +79,8 @@ public class StackOfObjectsOperationsTest {
                 }
             )
             .findFirst().orElse(null);
-        assertNotNull(input, emptyContext(), r -> "Could not determine Type that should be used for this Parameter. Check Type Definition.");
+        assertNotNull(input, emptyContext(),
+            r -> "Could not determine Type that should be used for this Parameter. Check Type Definition.");
         assertParameters(filter, List.of(
             matchNested(StackOfObjects.class, matchWildcard(true, input).or(match(input))),
             (t) -> true
@@ -96,7 +98,8 @@ public class StackOfObjectsOperationsTest {
                 }
             )
             .findFirst().orElse(null);
-        assertNotNull(input, emptyContext(), r -> "Could not determine Type that should be used for this Parameter. Check Type Definition.");
+        assertNotNull(input, emptyContext(),
+            r -> "Could not determine Type that should be used for this Parameter. Check Type Definition.");
         assertParameters(filter, List.of(
             (t) -> true,
             matchNested(Predicate.class, matchWildcard(false, input).or(match(input)))

@@ -95,7 +95,8 @@ public class StackOfObjectsTest {
 
         List<Type> types = getTypeParameters(of, ".*");
 
-        assertReturnParameter(of, matchNested(StackOfObjects.class, match(((GenericArrayType) types.get(0)).getGenericComponentType())));
+        assertReturnParameter(of,
+            matchNested(StackOfObjects.class, match(((GenericArrayType) types.get(0)).getGenericComponentType())));
 
         assertParameters(of, List.of(match(types.get(0))));
     }
