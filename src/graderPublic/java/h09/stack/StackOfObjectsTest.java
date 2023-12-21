@@ -1,6 +1,5 @@
 package h09.stack;
 
-import h09.function.Tests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
@@ -10,17 +9,22 @@ import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.filter.TypeFilter;
 
+import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CountDownLatch;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static h09.H09_TestUtils.*;
-import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
+import static h09.H09_TestUtils.assertDefinedParameters;
+import static h09.H09_TestUtils.assertParameters;
+import static h09.H09_TestUtils.assertReturnParameter;
+import static h09.H09_TestUtils.getTypeParameters;
+import static h09.H09_TestUtils.match;
+import static h09.H09_TestUtils.matchNested;
+import static h09.H09_TestUtils.matchNoBounds;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertTrue;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.emptyContext;
 import static org.tudalgo.algoutils.tutor.general.match.BasicStringMatchers.identical;
 
 @TestForSubmission
@@ -58,7 +62,7 @@ public class StackOfObjectsTest {
     public void testGetCast() {
         List<CtExpression<?>> expressions = stackLink.getCtElement()
             .filterChildren(
-                    (CtMethod<?> m) -> m.getSimpleName().equals("get")
+                (CtMethod<?> m) -> m.getSimpleName().equals("get")
             )
             .<CtMethod>first()
             .getBody()
@@ -76,7 +80,7 @@ public class StackOfObjectsTest {
     }
 
     @Test
-    public void testPushParameter(){
+    public void testPushParameter() {
         assertParameters(push, List.of(matchNoBounds("T")));
     }
 
@@ -91,7 +95,7 @@ public class StackOfObjectsTest {
 
         List<Type> types = getTypeParameters(of, ".*");
 
-        assertReturnParameter(of, match(types.get(0)));
+        assertReturnParameter(of, matchNested(StackOfObjects.class, match(((GenericArrayType) types.get(0)).getGenericComponentType())));
 
         assertParameters(of, List.of(match(types.get(0))));
     }

@@ -8,9 +8,8 @@ import org.sourcegrade.jagr.api.rubric.JUnitTestRef;
 import org.sourcegrade.jagr.api.rubric.Rubric;
 import org.sourcegrade.jagr.api.rubric.RubricProvider;
 
-import java.lang.reflect.Method;
-
-import static org.tudalgo.algoutils.tutor.general.jagr.RubricUtils.*;
+import static org.tudalgo.algoutils.tutor.general.jagr.RubricUtils.criterion;
+import static org.tudalgo.algoutils.tutor.general.jagr.RubricUtils.graderPrivateOnly;
 
 public class H09_RubricProvider implements RubricProvider {
 
@@ -44,12 +43,9 @@ public class H09_RubricProvider implements RubricProvider {
                                 JUnitTestRef.ofMethod(() -> StackOfObjectsTest.class.getDeclaredMethod("testPopParameter"))
                             ),
                             criterion(
-                                "H1.1: Der Methodenkopf von of() ist korrekt definiert."
-                                //TODO
-                            ),
-                            criterion(
-                                "H1.1: Typen von of() sind korrekt definiert.",
-                                JUnitTestRef.ofMethod(() -> StackOfObjectsTest.class.getDeclaredMethod("testOfParameter"))
+                                "H1.1: Der Methodenkopf von of() ist korrekt definiert.",
+                                JUnitTestRef.ofMethod(() -> StackOfObjectsTest.class.getDeclaredMethod("testOfParameter")),
+                                2
                             )
                         )
                         .build()
@@ -86,7 +82,10 @@ public class H09_RubricProvider implements RubricProvider {
                     Criterion.builder()
                         .shortDescription("H2.2: Methode map")
                         .addChildCriteria(
-                            criterion("H2.2: map() besitzt generische Typen."),
+                            criterion(
+                                "H2.2: map() besitzt generische Typen.",
+                                JUnitTestRef.ofMethod(() -> StackOfObjectsOperationsTest.class.getDeclaredMethod("testMap_isGeneric"))
+                            ),
                             Criterion.builder()
                                 .shortDescription("H2.2: Der erste Parameter wurde passend gewählt.")
                                 .grader(graderPrivateOnly())

@@ -23,11 +23,13 @@ public class StackOfObjects<T> {
 
     public T pop() {
         checkIfEmpty();
-        return get(lastIndex--);
+        var e = get(lastIndex);
+        lastIndex--;
+        return e;
     }
 
-    public static <O, I extends O> StackOfObjects<O> of(I[] objects) {
-        StackOfObjects<O> stack = new StackOfObjects<>();
+    public static <I> StackOfObjects<I> of(I[] objects) {
+        StackOfObjects<I> stack = new StackOfObjects<>();
         for (I object : objects) {
             stack.push(object);
         }

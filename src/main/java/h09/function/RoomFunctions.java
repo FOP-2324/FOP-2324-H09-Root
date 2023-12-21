@@ -23,7 +23,7 @@ public class RoomFunctions {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends Room> Function<Room, T> toRoomTypeOrNull(Class<T> type) {
+    public static <T extends Room> Function<T, T> toRoomTypeOrNull(Class<T> type) {
         return room -> type.isInstance(room) ? (T) room : null;
     }
 

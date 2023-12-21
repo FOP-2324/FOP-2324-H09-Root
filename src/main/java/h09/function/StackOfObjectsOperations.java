@@ -8,7 +8,7 @@ import h09.stack.StackOfObjects;
 public class StackOfObjectsOperations {
     public static <O, I extends O> StackOfObjects<O> filter(
         StackOfObjects<? extends I> in, // alternatively StackOfObjects<I>
-        Predicate<? super I> filter
+        Predicate<? super I> filter // alternatively Predicate<I>
     ) {
         StackOfObjects<O> out = new StackOfObjects<>();
         while (in.numberOfObjects() > 0) {
@@ -22,7 +22,7 @@ public class StackOfObjectsOperations {
 
     public static <O, I> StackOfObjects<O> map(
         StackOfObjects<? extends I> in, // alternatively StackOfObjects<I>
-        Function<? super I, ? extends O> function
+        Function<? super I, ? extends O> function // alternatively Function<I, O>è
     ) {
         StackOfObjects<O> out = new StackOfObjects<>();
         while (in.numberOfObjects() > 0) {
