@@ -215,16 +215,20 @@ public class H09_RubricProvider implements RubricProvider {
                     Criterion.builder()
                         .shortDescription("H4.1: Die großen 5, definiert von Stadtmitte und Lichtwiese.")
                         .addChildCriteria(
-                            criterion("H4.1: Alle tests sind vollständig korrekt implementiert.",
-                                JUnitTestRef.ofMethod(() -> TestsTest.class.getDeclaredMethod("testTestFilter")))
+                            criterion(
+                                "H4.1: Alle tests sind vollständig korrekt implementiert.",
+                                JUnitTestRef.ofMethod(() -> TestsTest.class.getDeclaredMethod("testTestFilter"))
+                            )
 
                         )
                         .build(),
                     Criterion.builder()
                         .shortDescription("H4.2: Test von map()")
                         .addChildCriteria(
-                            criterion("H4.2: Alle tests sind vollständig korrekt implementiert.",
-                                JUnitTestRef.ofMethod(() -> TestsTest.class.getDeclaredMethod("testTestMap")))
+                            criterion(
+                                "H4.2: Alle tests sind vollständig korrekt implementiert.",
+                                JUnitTestRef.ofMethod(() -> TestsTest.class.getDeclaredMethod("testTestMap"))
+                            )
                         )
                         .build()
                 )
