@@ -4,13 +4,12 @@ import h09.TUDa;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
+import org.mockito.exceptions.base.MockitoException;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -25,7 +24,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.emptyCo
 @TestForSubmission
 public class TestsTest {
 
-    private List<MockedStatic.Verification> intVerifications = List.of(
+    private final List<MockedStatic.Verification> intVerifications = List.of(
         () -> Assertions.assertEquals(anyInt(), anyInt()),
         () -> Assertions.assertEquals(anyInt(), any(Integer.class)),
         () -> Assertions.assertEquals(any(Integer.class), anyInt()),
@@ -40,7 +39,7 @@ public class TestsTest {
         () -> Assertions.assertEquals(any(Integer.class), any(Integer.class), any(Supplier.class))
     );
 
-    private List<MockedStatic.Verification> stringVerifications = List.of(
+    private final List<MockedStatic.Verification> stringVerifications = List.of(
         () -> Assertions.assertEquals(anyString(), anyString()),
         () -> Assertions.assertEquals(anyString(), anyString(), anyString()),
         () -> Assertions.assertEquals(anyString(), anyString(), any(Supplier.class))
@@ -51,8 +50,10 @@ public class TestsTest {
     public void testTestFilter() {
         try (
             MockedStatic<Assertions> assertionsMock = mockStatic(Assertions.class, CALLS_REAL_METHODS);
-            MockedStatic<StackOfObjectsOperations> stackOperationsMock = mockStatic(StackOfObjectsOperations.class,
-                CALLS_REAL_METHODS)
+            MockedStatic<StackOfObjectsOperations> stackOperationsMock = mockStatic(
+                StackOfObjectsOperations.class,
+                CALLS_REAL_METHODS
+            )
         ) {
             new Tests().testFilter();
 
@@ -66,23 +67,20 @@ public class TestsTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testTestMap() {
-        try {
-            try (
-                MockedStatic<Assertions> assertionsMock = mockStatic(Assertions.class, CALLS_REAL_METHODS);
-                MockedStatic<StackOfObjectsOperations> stackOperationsMock = mockStatic(StackOfObjectsOperations.class,
-                    CALLS_REAL_METHODS)
-            ) {
-                new Tests().testMap();
+        try (
+            MockedStatic<Assertions> assertionsMock = mockStatic(Assertions.class, CALLS_REAL_METHODS);
+            MockedStatic<StackOfObjectsOperations> stackOperationsMock = mockStatic(
+                StackOfObjectsOperations.class,
+                CALLS_REAL_METHODS
+            )
+        ) {
+            new Tests().testMap();
 
-                stackOperationsMock.verify(() -> StackOfObjectsOperations.map(any(), any()), atLeastOnce());
-                assertionsMock.verify(() -> Assertions.assertEquals(anyInt(), anyInt()), atLeastOnce());
+            stackOperationsMock.verify(() -> StackOfObjectsOperations.map(any(), any()), atLeastOnce());
+            assertionsMock.verify(() -> Assertions.assertEquals(anyInt(), anyInt()), atLeastOnce());
 
-                assertInvocation(assertionsMock, intVerifications, TUDa.stackOfSeminarRooms().numberOfObjects());
-            }
-        } catch (Throwable t) {
-            throw new RuntimeException(Arrays.stream(t.getStackTrace()).map(StackTraceElement::toString).collect(Collectors.joining("\n")));
+            assertInvocation(assertionsMock, intVerifications, TUDa.stackOfSeminarRooms().numberOfObjects());
         }
-
     }
 
     private void assertInvocation(MockedStatic<?> mock, Collection<MockedStatic.Verification> verifications, int times) {
@@ -91,7 +89,9 @@ public class TestsTest {
             try {
                 mock.verify(verification, atLeast(times));
                 hasCorrectCall = true;
-            } catch (AssertionError ignored) {
+                break;
+            } catch (AssertionError | MockitoException ignored) {
+
             }
         }
         assertTrue(hasCorrectCall, emptyContext(), r -> "The returned values of Map are not correctly checked.");
