@@ -200,10 +200,28 @@ public class H09_RubricProvider implements RubricProvider {
                         .shortDescription("H3.4: toRoomTypeOrNull")
                         .addChildCriteria(
                             Criterion.builder()
-                                .shortDescription("TODO")//TODO
+                                .shortDescription("H3.4: Der Rückgabetyp der Methode ist korrekt instanziiert.")
                                 .grader(graderPrivateOnly())
                                 .minPoints(0)
-                                .maxPoints(4)
+                                .maxPoints(1)
+                                .build(),
+                            Criterion.builder()
+                                .shortDescription("H3.4: Die Typen der Methode sind korrekt generisch definiert.")
+                                .grader(graderPrivateOnly())
+                                .minPoints(0)
+                                .maxPoints(1)
+                                .build(),
+                            Criterion.builder()
+                                .shortDescription("H3.4: toRoomTypeOrNull() verwendet einen korrekten Cast.")
+                                .grader(graderPrivateOnly())
+                                .minPoints(0)
+                                .maxPoints(1)
+                                .build(),
+                            Criterion.builder()
+                                .shortDescription("H3.4: Die Parameter der Methode sind korrekt generisch definiert.")
+                                .grader(graderPrivateOnly())
+                                .minPoints(0)
+                                .maxPoints(1)
                                 .build()
                         )
                         .build()
