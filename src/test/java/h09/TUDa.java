@@ -7,6 +7,7 @@ import h09.stack.StackOfObjects;
 public class TUDa {
 
     public static StackOfObjects<LectureHall> stackOfLectureHalls() {
+        // TODO H4 - type parameter
         StackOfObjects<LectureHall> stack = new StackOfObjects<>();
         stack.push(new LectureHall("B101/52", 84));
         stack.push(new LectureHall("B201/147", 187));
@@ -61,6 +62,7 @@ public class TUDa {
     }
 
     public static StackOfObjects<SeminarRoom> stackOfSeminarRooms() {
+             // TODO H4 - type parameter
         StackOfObjects<SeminarRoom> stack = new StackOfObjects<>();
         stack.push(new SeminarRoom("B102/1", 24));
         stack.push(new SeminarRoom("B108/1", 20));
