@@ -28,7 +28,7 @@ public class StackOfObjects<T> {
         return e;
     }
 
-    public static <I> StackOfObjects<I> of(I[] objects) {
+    public static <I> StackOfObjects<I> of(I... objects) {
         StackOfObjects<I> stack = new StackOfObjects<>();
         for (I object : objects) {
             stack.push(object);
