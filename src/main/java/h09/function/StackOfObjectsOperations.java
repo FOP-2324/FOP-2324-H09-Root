@@ -1,18 +1,30 @@
 package h09.function;
 
+import h09.stack.StackOfObjects;
+
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import h09.stack.StackOfObjects;
-
+/**
+ * A collection of operations usable for rooms.
+ */
 public class StackOfObjectsOperations {
-    public static <O, I extends O> StackOfObjects<O> filter(
-        StackOfObjects<? extends I> in, // alternatively StackOfObjects<I>
-        Predicate<? super I> filter // alternatively Predicate<I>
+
+    /**
+     * Returns a stack containing all objects of the given stack in reversed order for which the given filter returns true.
+     *
+     * @param in     the input stack
+     * @param filter the filter
+     * @return the output stack
+     */
+    public static <Y, X extends Y> StackOfObjects<Y> filter(
+        StackOfObjects<X> in, // Alternatively: StackOfObjects<I>
+        Predicate<X> filter // Alternatively: Predicate<I>
     ) {
-        StackOfObjects<O> out = new StackOfObjects<>();
+        // TODO H2.1 - generic method, type parameter return type, parameter type, type of objects
+        StackOfObjects<Y> out = new StackOfObjects<>();
         while (in.numberOfObjects() > 0) {
-            I element = in.pop();
+            X element = in.pop();
             if (filter.test(element)) {
                 out.push(element);
             }
@@ -20,14 +32,22 @@ public class StackOfObjectsOperations {
         return out;
     }
 
-    public static <O, I> StackOfObjects<O> map(
-        StackOfObjects<? extends I> in, // alternatively StackOfObjects<I>
-        Function<? super I, ? extends O> function // alternatively Function<I, O>è
+    /**
+     * Returns a stack containing all objects of the given stack mapped using the given function.
+     *
+     * @param in       the input stack
+     * @param function the function
+     * @return the output stack
+     */
+    public static <Y, X> StackOfObjects<Y> map(
+        StackOfObjects<? extends X> in, // Alternatively: StackOfObjects<I>
+        Function<? super X, ? extends Y> function // Alternatively: Function<I, O>
     ) {
-        StackOfObjects<O> out = new StackOfObjects<>();
+        // TODO H2.2 - generic method, type parameter return type, parameter type, type of objects
+        StackOfObjects<Y> out = new StackOfObjects<>();
         while (in.numberOfObjects() > 0) {
-            I from = in.pop();
-            O to = function.apply(from);
+            X from = in.pop();
+            Y to = function.apply(from);
             out.push(to);
         }
         return out;

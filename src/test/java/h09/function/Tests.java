@@ -12,6 +12,7 @@ public class Tests {
 
     @Test
     public void testFilter() {
+        // TODO H4.1
         StackOfObjects<LectureHall> filtered = StackOfObjectsOperations.filter(
             TUDa.stackOfLectureHalls(),
             room -> room.numberOfSeats() >= 372
@@ -26,6 +27,7 @@ public class Tests {
 
     @Test
     public void testMap() {
+        // TODO H4.2
         StackOfObjects<SeminarRoom> rooms = TUDa.stackOfSeminarRooms();
         StackOfObjects<Integer> mapped = StackOfObjectsOperations.map(
             TUDa.stackOfSeminarRooms(),
