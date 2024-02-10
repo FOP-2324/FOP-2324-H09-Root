@@ -26,6 +26,7 @@ jagr {
         }
         val graderPrivate by creating {
             parent(graderPublic)
+            rubricProviderName.set("h09.H09_RubricProviderPrivate")
             graderName.set("H09-Private")
         }
     }
