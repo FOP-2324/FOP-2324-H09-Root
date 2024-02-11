@@ -36,7 +36,8 @@ public class TestsTestP {
         () -> Assertions.assertEquals(any(Integer.class), any(Integer.class), anyString()),
         () -> Assertions.assertEquals(anyInt(), anyInt(), any(Supplier.class)),
         () -> Assertions.assertEquals(anyInt(), any(Integer.class), any(Supplier.class)),
-        () -> Assertions.assertEquals(any(Integer.class), anyInt(), any(Supplier.class))
+        () -> Assertions.assertEquals(any(Integer.class), anyInt(), any(Supplier.class)),
+        () -> Assertions.assertEquals(any(Integer.class), any(Integer.class), any(Supplier.class))
     );
 
     private final List<MockedStatic.Verification> stringVerifications = List.of(
