@@ -306,7 +306,7 @@ public class H09_TestUtilsP {
      * Retrieves all generic types that are defined by the given class.
      *
      * @param clazz the class that the generic types should be retrieved from.
-     * @param regex  a regex that is used to filter all generic type names.
+     * @param regex a regex that is used to filter all generic type names.
      * @return a List containing all defined types that match the given regex.
      */
     public static List<Type> getDefinedTypes(Class<?> clazz, String regex) {
@@ -374,11 +374,23 @@ public class H09_TestUtilsP {
             context,
             r -> method.getName() + " does not have the expected number of generic parameters."
         );
-        typeVariable.forEach(a ->
+        typeVariable.forEach(a -> {
+                assertTrue(
+                    expected.stream().anyMatch(e -> e.test(a)),
+                    context,
+                    r -> String.format("The type parameter %s of %s do not match any expected types.", a, method.getName())
+                );
+            }
+        );
+        expected.forEach(e ->
             assertTrue(
-                expected.stream().anyMatch(e -> e.test(a)),
+                typeVariable.stream().anyMatch(e),
                 context,
-                r -> String.format("The type parameter %s of %s do not match any expected types.", a, method.getName())
+                r -> String.format(
+                    "The expected type definition %s does not hot have a matching type definition in %s.",
+                    e,
+                    method.getName()
+                )
             )
         );
     }

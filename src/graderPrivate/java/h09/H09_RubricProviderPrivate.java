@@ -111,7 +111,7 @@ public class H09_RubricProviderPrivate implements RubricProvider {
                                 2
                             ),
                             criterion(
-                                "H2.2: Der erste Parameter wurde passend gewählt.",
+                                "H2.2: Der Rückgabetyp wurde passend gewählt.",
                                 JUnitTestRef.ofMethod(
                                     () -> StackOfObjectsOperationsTestP.class.getDeclaredMethod("testMap_ReturnType"))
                             ),

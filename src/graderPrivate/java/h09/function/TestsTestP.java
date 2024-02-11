@@ -9,6 +9,7 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -35,8 +36,7 @@ public class TestsTestP {
         () -> Assertions.assertEquals(any(Integer.class), any(Integer.class), anyString()),
         () -> Assertions.assertEquals(anyInt(), anyInt(), any(Supplier.class)),
         () -> Assertions.assertEquals(anyInt(), any(Integer.class), any(Supplier.class)),
-        () -> Assertions.assertEquals(any(Integer.class), anyInt(), any(Supplier.class)),
-        () -> Assertions.assertEquals(any(Integer.class), any(Integer.class), any(Supplier.class))
+        () -> Assertions.assertEquals(any(Integer.class), anyInt(), any(Supplier.class))
     );
 
     private final List<MockedStatic.Verification> stringVerifications = List.of(
@@ -77,8 +77,7 @@ public class TestsTestP {
             new Tests().testMap();
 
             stackOperationsMock.verify(() -> StackOfObjectsOperations.map(any(), any()), atLeastOnce());
-            assertionsMock.verify(() -> Assertions.assertEquals(anyInt(), anyInt()), atLeastOnce());
-
+            assertInvocation(assertionsMock, intVerifications, 1);
             assertInvocation(assertionsMock, intVerifications, TUDa.stackOfSeminarRooms().numberOfObjects());
         }
     }

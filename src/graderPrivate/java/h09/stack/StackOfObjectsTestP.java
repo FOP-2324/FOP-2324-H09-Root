@@ -75,6 +75,15 @@ public class StackOfObjectsTestP {
             .anyMatch(t ->
                 t.equals("T")
             );
+        hasCast = hasCast || stackLink.getCtElement()
+            .filterChildren(
+                (CtMethod<?> m) -> m.getSimpleName().equals("toRoomTypeOrNull")
+            )
+            .<CtMethod>first()
+            .getBody()
+            .getLastStatement()
+            .toString()
+            .matches("(?s).*\\.cast\\(.*\\).*");
 
         assertTrue(hasCast, emptyContext(), r -> "get() does not contain cast to type T.");
     }

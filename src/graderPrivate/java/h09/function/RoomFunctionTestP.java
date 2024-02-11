@@ -13,6 +13,7 @@ import spoon.reflect.code.CtExpression;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.visitor.Filter;
 import spoon.reflect.visitor.filter.TypeFilter;
 
 import java.lang.reflect.Field;
@@ -173,6 +174,15 @@ public class RoomFunctionTestP {
             .anyMatch(t ->
                 definedTypes.stream().anyMatch(defined -> t.equals(defined.getTypeName()))
             );
+        hasCast = hasCast || roomFunctionsLink.getCtElement()
+            .filterChildren(
+                (CtMethod<?> m) -> m.getSimpleName().equals("toRoomTypeOrNull")
+            )
+            .<CtMethod>first()
+            .getBody()
+            .getLastStatement()
+            .toString()
+            .matches("(?s).*\\.cast\\(.*\\).*");
 
         assertTrue(hasCast, emptyContext(), r -> "get() does not contain correct cast.");
     }

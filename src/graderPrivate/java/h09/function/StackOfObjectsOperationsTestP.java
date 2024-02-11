@@ -23,6 +23,7 @@ import static h09.H09_TestUtilsP.getBounds;
 import static h09.H09_TestUtilsP.getDefinedTypes;
 import static h09.H09_TestUtilsP.getInnerTypes;
 import static h09.H09_TestUtilsP.getReturnType;
+import static h09.H09_TestUtilsP.getTypeParameters;
 import static h09.H09_TestUtilsP.match;
 import static h09.H09_TestUtilsP.matchNested;
 import static h09.H09_TestUtilsP.matchNoBounds;
@@ -67,8 +68,18 @@ public class StackOfObjectsOperationsTestP {
                 }
             )
             .findFirst().orElse(null);
+        if (input == null) {
+            input = getDefinedTypes(filter, ".*").stream()
+                .filter(t -> {
+                        Type firstParameter = getTypeParameters(filter, ".*").get(0);
+                        List<Type> innerTypes = getInnerTypes(firstParameter);
+                        return !innerTypes.isEmpty() && !t.equals(innerTypes.get(0));
+                    }
+                )
+                .findFirst().orElse(null);
+        }
         assertNotNull(input, emptyContext(),
-            r -> "Could not determine Type that should be used for this Parameter. Check Type Definition."
+            r -> "Could not determine Type that should be used for this Parameter. Check Type Definition. One Parameter should extend the other."
         );
         assertReturnParameter(filter, matchNested(StackOfObjects.class, match(input)));
     }
@@ -84,6 +95,18 @@ public class StackOfObjectsOperationsTestP {
                 }
             )
             .findFirst().orElse(null);
+        if (input == null) {
+            input = getDefinedTypes(filter, ".*").stream()
+                .filter(t -> {
+                        Type firstParameter = getReturnType(filter);
+                        List<Type> innerTypes = getInnerTypes(firstParameter);
+                        System.out.println(innerTypes);
+                        System.out.println(t);
+                        return !innerTypes.isEmpty() && !t.equals(innerTypes.get(0));
+                    }
+                )
+                .findFirst().orElse(null);
+        }
         assertNotNull(input, emptyContext(),
             r -> "Could not determine Type that should be used for this Parameter. Check Type Definition."
         );
@@ -104,6 +127,16 @@ public class StackOfObjectsOperationsTestP {
                 }
             )
             .findFirst().orElse(null);
+        if (input == null) {
+            input = getDefinedTypes(filter, ".*").stream()
+                .filter(t -> {
+                        Type firstParameter = getReturnType(filter);
+                        List<Type> innerTypes = getInnerTypes(firstParameter);
+                        return !innerTypes.isEmpty() && !t.equals(innerTypes.get(0));
+                    }
+                )
+                .findFirst().orElse(null);
+        }
         assertNotNull(input, emptyContext(),
             r -> "Could not determine Type that should be used for this Parameter. Check Type Definition."
         );
@@ -118,7 +151,7 @@ public class StackOfObjectsOperationsTestP {
         assertDefinedParameters(filter, Set.of(
             matchNoBounds(".*"),
             getDefinedTypes(filter, ".*").stream()
-                .map((type) ->
+                .map(type ->
                     matchUpperBounds(".*", type)
                 )
                 .reduce(Predicate::or)
