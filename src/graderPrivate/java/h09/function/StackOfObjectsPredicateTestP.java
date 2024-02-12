@@ -1,5 +1,6 @@
 package h09.function;
 
+import h09.H09_TestUtilsP;
 import h09.stack.StackOfObjects;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
@@ -12,6 +13,7 @@ import java.util.function.Predicate;
 import static h09.H09_TestUtilsP.assertGeneric;
 import static h09.H09_TestUtilsP.getDefinedTypes;
 import static h09.H09_TestUtilsP.getGenericSuperTypes;
+import static h09.H09_TestUtilsP.match;
 import static h09.H09_TestUtilsP.matchNested;
 import static h09.H09_TestUtilsP.matchWildcard;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertEquals;
@@ -39,9 +41,9 @@ public class StackOfObjectsPredicateTestP {
         List<Type> definedTypes = getDefinedTypes(StackOfObjectsPredicate.class, ".*");
 
         Predicate<Type> genericMatcher = definedTypes.stream()
-            .map(type -> matchNested(Predicate.class, matchNested(StackOfObjects.class, matchWildcard(false, type))))
+            .map(type -> matchNested(Predicate.class, matchNested(StackOfObjects.class, matchWildcard(false, type).or(match(type)))))
             .reduce(Predicate::or)
-            .orElse(i -> false);
+            .orElse(new H09_TestUtilsP.GenericPredicate(i -> false, "Expected type is not defined"));
 
         List<Type> superTypes = getGenericSuperTypes(StackOfObjectsPredicate.class);
 

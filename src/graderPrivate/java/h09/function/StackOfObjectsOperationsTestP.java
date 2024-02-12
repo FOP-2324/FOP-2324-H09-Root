@@ -1,5 +1,6 @@
 package h09.function;
 
+import h09.H09_TestUtilsP;
 import h09.stack.StackOfObjects;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.BeforeEach;
@@ -155,7 +156,7 @@ public class StackOfObjectsOperationsTestP {
                     matchUpperBounds(".*", type)
                 )
                 .reduce(Predicate::or)
-                .orElse(i -> false)
+                .orElse(new H09_TestUtilsP.GenericPredicate(i -> false, "Expected type is not defined"))
         ));
     }
 
@@ -178,7 +179,7 @@ public class StackOfObjectsOperationsTestP {
         final Predicate<Type> wildCardMatcher = getDefinedTypes(map, ".*").stream()
             .map(type -> matchWildcard(true, type))
             .reduce(Predicate::or)
-            .orElse(i -> false);
+            .orElse(new H09_TestUtilsP.GenericPredicate(i -> false, "Expected type is not defined"));
 
         assertParameters(map, List.of(
             matchNested(StackOfObjects.class, wildCardMatcher.or(matchNoBounds(".*"))),
@@ -192,11 +193,11 @@ public class StackOfObjectsOperationsTestP {
         final Predicate<Type> firstWildCardMatcher = definedTypes.stream()
             .map(type -> matchWildcard(false, type))
             .reduce(Predicate::or)
-            .orElse(i -> false);
+            .orElse(new H09_TestUtilsP.GenericPredicate(i -> false, "Expected type is not defined"));
         final Predicate<Type> secondWildCardMatcher = definedTypes.stream()
             .map(type -> matchWildcard(true, type))
             .reduce(Predicate::or)
-            .orElse(i -> false);
+            .orElse(new H09_TestUtilsP.GenericPredicate(i -> false, "Expected type is not defined"));
 
         assertParameters(map, List.of(
             ignored -> true,
@@ -219,12 +220,12 @@ public class StackOfObjectsOperationsTestP {
             .filter(type -> !type.equals(returnType.get(0)))
             .map(type -> matchWildcard(true, type).or(match(type)))
             .reduce(Predicate::or)
-            .orElse(i -> false);
+            .orElse(new H09_TestUtilsP.GenericPredicate(i -> false, "Expected type is not defined"));
         final Predicate<Type> secondWildCardMatcher = definedTypes.stream()
             .filter(type -> !type.equals(returnType.get(0)))
             .map(type -> matchWildcard(false, type).or(match(type)))
             .reduce(Predicate::or)
-            .orElse(i -> false);
+            .orElse(new H09_TestUtilsP.GenericPredicate(i -> false, "Expected type is not defined"));
         final Predicate<Type> thirdWildCardMatcher = matchWildcard(true, returnType.get(0)).or(match(returnType.get(0)));
 
         assertParameters(map, List.of(

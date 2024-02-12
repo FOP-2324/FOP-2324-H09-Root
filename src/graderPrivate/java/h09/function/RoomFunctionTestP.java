@@ -84,7 +84,7 @@ public class RoomFunctionTestP {
         Predicate<Type> typeMatcher = getDefinedTypes(isInArea, ".*").stream()
             .map(H09_TestUtilsP::match)
             .reduce(Predicate::or)
-            .orElse(i -> false);
+            .orElse(new H09_TestUtilsP.GenericPredicate(i -> false, "Expected type is not defined"));
 
         assertReturnParameter(isInArea, matchNested(Predicate.class, typeMatcher));
     }
@@ -103,7 +103,7 @@ public class RoomFunctionTestP {
         Predicate<Type> typeMatcher = getDefinedTypes(isInAreaAndHasMinimumNumberOfSeats, ".*").stream()
             .map(H09_TestUtilsP::match)
             .reduce(Predicate::or)
-            .orElse(i -> false);
+            .orElse(new H09_TestUtilsP.GenericPredicate(i -> false, "Expected type is not defined"));
 
         assertReturnParameter(isInAreaAndHasMinimumNumberOfSeats, matchNested(Predicate.class, typeMatcher));
     }
@@ -136,7 +136,7 @@ public class RoomFunctionTestP {
         Predicate<Type> typeMatcher = getDefinedTypes(toRoomTypeOrNull, ".*").stream()
             .map(H09_TestUtilsP::match)
             .reduce(Predicate::or)
-            .orElse(i -> false);
+            .orElse(new H09_TestUtilsP.GenericPredicate(i -> false, "Expected type is not defined"));
 
         assertReturnParameter(toRoomTypeOrNull, matchNested(Function.class, match(Room.class), typeMatcher));
     }
@@ -147,7 +147,7 @@ public class RoomFunctionTestP {
             .map(H09_TestUtilsP::match)
             .map(pred -> matchNested(Class.class, pred))
             .reduce(Predicate::or)
-            .orElse(i -> false);
+            .orElse(new H09_TestUtilsP.GenericPredicate(i -> false, "Expected type is not defined"));
 
         assertParameters(toRoomTypeOrNull, List.of(
             typeMatcher

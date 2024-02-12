@@ -529,7 +529,7 @@ public class H09_TestUtilsP {
          * @param predicate   the predicate that should be used to match any object.
          * @param description the description of what the predicate matches.
          */
-        GenericPredicate(Predicate<Type> predicate, String description) {
+        public GenericPredicate(Predicate<Type> predicate, String description) {
             this.predicate = predicate;
             this.description = description;
         }
