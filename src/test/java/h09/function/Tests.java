@@ -7,7 +7,6 @@ import h09.stack.StackOfObjects;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class Tests {
 
@@ -36,7 +35,7 @@ public class Tests {
         );
         assertEquals(170, mapped.numberOfObjects());
         for (int i = 0; i < rooms.numberOfObjects(); i++) {
-            assertSame(rooms.get(i).numberOfSeats(), mapped.get(rooms.numberOfObjects() - (i + 1)));
+            assertEquals(rooms.get(i).numberOfSeats(), mapped.get(rooms.numberOfObjects() - (i + 1)));
         }
     }
 }
